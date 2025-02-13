@@ -1,35 +1,38 @@
 package com.example.shorst_begone
 
-import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import android.view.accessibility.AccessibilityNodeInfo;
-import android.view.accessibility.AccessibilityEvent;
-import android.util.Log;
+import android.accessibilityservice.AccessibilityService
+import android.util.Log
+import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityNodeInfo
 
+class ShortsDisablerService : AccessibilityService() {
 
-private void disableShortsButton(AccessibilityNodeInfo node) {
-    if (node == null) return;
+    private fun disableShortsButton(node: AccessibilityNodeInfo?) {
+        if (node == null) return
 
-    // Check if this node matches the Shorts button based on content description or text
-    if (node.getContentDescription() != null && node.getContentDescription().toString().equals("Shorts")) {
-        node.setClickable(false);  // Attempt to disable clickability
-        node.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, null);  // Optional: Disable further interactions
-        Log.d("ButtonDisabler", "Shorts button found and disabled.");
+        // Check if this node matches the Shorts button based on content description
+        if (node.contentDescription?.toString() == "Shorts") {
+            node.isClickable = false
+            Log.d("ButtonDisabler", "Shorts button found and disabled.")
+        }
+
+        // Traverse child nodes recursively
+        for (i in 0 until node.childCount) {
+            disableShortsButton(node.getChild(i))
+        }
     }
 
-    // Traverse child nodes recursively
-    for (int i = 0; i < node.getChildCount(); i++) {
-        disableShortsButton(node.getChild(i));
+    override fun onAccessibilityEvent(event: AccessibilityEvent) {
+        // Filter for window content changed events and check if the event is from the youtube app.
+        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED && event.packageName == "com.google.android.youtube") {
+            val rootNode = rootInActiveWindow
+            if (rootNode != null) {
+                disableShortsButton(rootNode)
+            }
+        }
     }
-}
 
-@Override
-public void onAccessibilityEvent(AccessibilityEvent event) {
-    if (event.getSource() == null) return;
-    AccessibilityNodeInfo rootNode = getRootInActiveWindow();
-    if (rootNode != null) {
-        disableShortsButton(rootNode);
+    override fun onInterrupt() {
+        Log.d("ButtonDisabler", "Service interrupted")
     }
 }
