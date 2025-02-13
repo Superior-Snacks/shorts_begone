@@ -1,3 +1,11 @@
+package com.example.shorst_begone
+
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+
+
 private void disableShortsButton(AccessibilityNodeInfo node) {
     if (node == null) return;
 
