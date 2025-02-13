@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import android.view.accessibility.AccessibilityNodeInfo;
+import android.view.accessibility.AccessibilityEvent;
+import android.util.Log;
 
 
 private void disableShortsButton(AccessibilityNodeInfo node) {
