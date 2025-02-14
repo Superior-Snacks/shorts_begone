@@ -25,11 +25,8 @@ class ShortsDisablerService : AccessibilityService() {
                 node.parent?.isVisibleToUser = false
                 Log.d("ButtonDisabler", "Shorts button found and disabled.")
             }
-            // Recycle the node
-            node.recycle()
         }
-        // Recycle the list
-        shortsNodes.forEach { it.recycle() }
+        shortsNodes.clear()
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
