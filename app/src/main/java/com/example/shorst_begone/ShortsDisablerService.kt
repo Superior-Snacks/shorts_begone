@@ -6,28 +6,30 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 
 import android.accessibilityservice.AccessibilityService
+//import androidx.preference.forEach
 
 
 class ShortsDisablerService : AccessibilityService() {
 
-    private fun disableShortsButton(node: AccessibilityNodeInfo?) {
-        if (node == null) return
+    private fun disableShortsButton(rootNode: AccessibilityNodeInfo?) {
+        if (rootNode == null) return
 
+        // Find all nodes with the text "Shorts"
+        val shortsNodes = rootNode.findAccessibilityNodeInfosByText("Shorts")
 
-        // Check if this node matches the Shorts button based on content description
-        if (node.viewIdResourceName == "com.google.android.youtube:id/shorts_button") {
-            node.isClickable = false
-            node.parent?.isVisibleToUser = false
-            Log.d("ButtonDisabler", "Shorts button found and disabled.")
+        // Iterate through the found nodes
+        for (node in shortsNodes) {
+            // Check if this is the correct node
+            if (node.viewIdResourceName == "com.google.android.youtube:id/shorts_button") {
+                // Try to set the parent to invisible
+                node.parent?.isVisibleToUser = false
+                Log.d("ButtonDisabler", "Shorts button found and disabled.")
+            }
+            // Recycle the node
+            node.recycle()
         }
-        else {
-            Log.d("ButtonDisabler", "Shorts button not found.")
-        }
-
-        // Traverse child nodes recursively
-        for (i in 0 until node.childCount) {
-            disableShortsButton(node.getChild(i))
-        }
+        // Recycle the list
+        shortsNodes.forEach { it.recycle() }
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
