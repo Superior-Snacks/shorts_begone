@@ -34,6 +34,7 @@ class ShortsDisablerService : AccessibilityService() {
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED && event.packageName == "com.google.android.youtube") {
             val rootNode = rootInActiveWindow
             if (rootNode != null) {
+                Log.d("found", "fucking hell I am going insane")
                 disableShortsButton(rootNode)
             }
         }
