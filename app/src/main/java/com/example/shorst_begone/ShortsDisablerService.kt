@@ -18,6 +18,9 @@ class ShortsDisablerService : AccessibilityService() {
             node.isClickable = false
             Log.d("ButtonDisabler", "Shorts button found and disabled.")
         }
+        else {
+            Log.d("ButtonDisabler", "Shorts button not found.")
+        }
 
         // Traverse child nodes recursively
         for (i in 0 until node.childCount) {
