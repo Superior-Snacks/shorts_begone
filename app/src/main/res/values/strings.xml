@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">shorst_begone</string>
 </resources>
+
+<resources>
+<string name="accessibility_service_label">Shorts Disabler</string>
+<string name="accessibility_service_description">Disables the Shorts button in the YouTube app.</string>
+</resources>
