@@ -13,6 +13,7 @@ class ShortsDisablerService : AccessibilityService() {
     private fun disableShortsButton(node: AccessibilityNodeInfo?) {
         if (node == null) return
 
+
         // Check if this node matches the Shorts button based on content description
         if (node.viewIdResourceName == "com.google.android.youtube:id/shorts_button") {
             node.isClickable = false
