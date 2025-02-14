@@ -12,17 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Shorst_begone"
         tools:targetApi="31">
-
-        <!-- MainActivity Declaration -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <!-- Accessibility Service Declaration -->
         <service
             android:name=".ShortsDisablerService"
@@ -32,6 +30,7 @@
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accessibilityservice"
                 android:resource="@xml/accessibility_service_config" />
