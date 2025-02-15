@@ -20,7 +20,7 @@ class ShortsDisablerService : AccessibilityService() {
             Log.d("NodeInfo", "contentDescription: ${node.contentDescription}, className: ${node.className}")
 
             //node.className?.contains("Button") == true
-            if (node.contentDescription == "Shorts") {
+            if (node.contentDescription?.trim() == "Shorts") {
                 Log.d("ButtonDisabler", "Shorts button found")
 
                 // Try to remove/hide the button
