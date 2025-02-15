@@ -8,49 +8,20 @@ import android.accessibilityservice.AccessibilityService
 //import androidx.compose.ui.semantics.contentDescription
 
 
-class ShortsDisablerService : AccessibilityService() {
+private fun disableShortsButton(rootNode: AccessibilityNodeInfo?) {
+    if (rootNode == null) return
 
-    private fun disableShortsButton(rootNode: AccessibilityNodeInfo?) {
-        if (rootNode == null) return
+    val shortsNodes = rootNode.findAccessibilityNodeInfosByText("Shorts")
 
-        // Find all nodes with text "Shorts"
-        val shortsNodes = rootNode.findAccessibilityNodeInfosByText("Shorts")
+    for (node in shortsNodes) {
+        if (node.contentDescription?.trim() == "Shorts" && node.className?.contains("Button") == true) {
+            val rect = Rect()
+            node.getBoundsInScreen(rect)
+            Log.d("ShortsOverlay", "Button found at: $rect")
 
-        for (node in shortsNodes) {
-            Log.d("NodeInfo", "contentDescription: ${node.contentDescription}, className: ${node.className}")
-
-            //node.className?.contains("Button") == true
-            val description = node.contentDescription?.trim()?.replace("\\s".toRegex(), "")
-            val className = node.className?.trim()
-
-            if (description != null && description.matches(Regex("(?i)^Shorts\$")) &&
-                className != null && className.matches(Regex("(?i)^android\\.widget\\.Button(\\..*)?\$"))) {
-                Log.d("ButtonDisabler", "Shorts button found and matched!")
-
-                // Try to disable function
-                // Trick the button into being "focused" instead of clicked
-                node.performAction(AccessibilityNodeInfo.ACTION_FOCUS)
-                node.performAction(AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
-
-                Log.d("ButtonDisabler??", "Shorts button disabled.")
-            }
-            else {
-                Log.d("GayButtonDisabler", "NADA FOUND")
+            if (!rect.isEmpty) {
+                showOverlay(rect)  // Create an overlay at the Shorts button location
             }
         }
-        shortsNodes.clear()
-    }
-
-    override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED &&
-            event.packageName == "com.google.android.youtube") {
-
-            val rootNode = rootInActiveWindow
-            rootNode?.let { disableShortsButton(it) }
-        }
-    }
-
-    override fun onInterrupt() {
-        Log.d("ButtonDisabler", "Service interrupted")
     }
 }
