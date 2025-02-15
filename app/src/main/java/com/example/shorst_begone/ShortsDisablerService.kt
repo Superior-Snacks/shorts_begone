@@ -12,6 +12,9 @@ import android.view.accessibility.AccessibilityNodeInfo
 import androidx.compose.ui.geometry.isEmpty
 import androidx.compose.ui.semantics.contentDescription
 
+//import androidx.compose.ui.geometry.isEmpty
+//import androidx.compose.ui.semantics.contentDescription
+
 class ShortsDisablerService : AccessibilityService() {
 
     private fun disableShortsButton(rootNode: AccessibilityNodeInfo?) {
@@ -37,9 +40,15 @@ class ShortsDisablerService : AccessibilityService() {
         val overlayView = View(this)
         overlayView.setBackgroundColor(Color.TRANSPARENT) // Make it invisible
 
-        overlayView.setOnTouchListener { _, _ ->
-            Log.d("ShortsOverlay", "Blocked Shorts button tap")
-            true  // Prevent touches from passing through
+        overlayView.setOnTouchListener { view, event ->
+            when (event.action) {
+                MotionEvent.ACTION_UP -> {
+                    Log.d("ShortsOverlay", "Blocked Shorts button tap")
+                    view.performClick() // Call performClick() on ACTION_UP
+                    true  // Consume the touch event
+                }
+                else -> true // Consume other touch events
+            }
         }
 
         val overlayParams = WindowManager.LayoutParams(
