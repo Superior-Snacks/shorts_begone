@@ -4,9 +4,7 @@ package com.example.shorst_begone
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-
 import android.accessibilityservice.AccessibilityService
-//import androidx.preference.forEach
 
 
 class ShortsDisablerService : AccessibilityService() {
@@ -20,12 +18,13 @@ class ShortsDisablerService : AccessibilityService() {
 
         // Iterate through the found nodes
         for (node in shortsNodes) {
-            Log.d("start_check", "Started to check a found node")
             // Check if this is the correct node
-            if (node.viewIdResourceName == "com.google.android.youtube:id/shorts_button") {
-                // Get the grandparent
+            if (node.contentDescription == "Shorts" && node.className == "android.widget.Button") {
+                // Get the parent
                 val parent = node.parent
+                // Get the grandparent
                 val grandparent = parent?.parent
+                // Get the great-grandparent
                 val greatGrandparent = grandparent?.parent
 
                 // Try to hide the great-grandparent
@@ -50,6 +49,17 @@ class ShortsDisablerService : AccessibilityService() {
                 } else {
                     Log.w("ButtonDisabler", "Shorts grandparent not found.")
                 }
+                // Try to hide the parent
+                if (parent != null) {
+                    try {
+                        parent.isVisibleToUser = false
+                        Log.d("ButtonDisabler", "Shorts parent found and disabled.")
+                    } catch (e: Exception) {
+                        Log.e("ButtonDisabler", "Error disabling Shorts parent: ${e.message}")
+                    }
+                } else {
+                    Log.w("ButtonDisabler", "Shorts parent not found.")
+                }
             }
         }
         shortsNodes.clear()
@@ -62,7 +72,6 @@ class ShortsDisablerService : AccessibilityService() {
             if (rootNode != null) {
                 disableShortsButton(rootNode)
             }
-            Log.d("NULL!!!!", "node was null you bitch")
         }
     }
 
