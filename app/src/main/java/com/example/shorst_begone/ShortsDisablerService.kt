@@ -27,16 +27,9 @@ class ShortsDisablerService : AccessibilityService() {
                 className != null && className.matches(Regex("(?i)^android\\.widget\\.Button(\\..*)?\$"))) {
                 Log.d("ButtonDisabler", "Shorts button found and matched!")
 
-                // Try to remove/hide the button
-                if (node.isClickable) {
-                    node.performAction(AccessibilityNodeInfo.ACTION_CLICK) // Click to navigate away
-                } else {
-                    node.performAction(AccessibilityNodeInfo.ACTION_DISMISS) // Try dismissing
-                }
-
-                // Try removing from parent (optional)
-                //val parent = node.parent
-                //parent?.removeChild(node)
+                // Try to disable function
+                node.isClickable = false  // Disable clicks
+                node.isFocusable = false  // Prevent focus
 
                 Log.d("ButtonDisabler??", "Shorts button disabled.")
             }
