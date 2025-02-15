@@ -19,6 +19,7 @@ class ShortsDisablerService : AccessibilityService() {
 
         // Iterate through the found nodes
         for (node in shortsNodes) {
+            Log.d("start_check", "Started to check a found node")
             // Check if this is the correct node
             if (node.viewIdResourceName == "com.google.android.youtube:id/shorts_button") {
                 // Get the grandparent
