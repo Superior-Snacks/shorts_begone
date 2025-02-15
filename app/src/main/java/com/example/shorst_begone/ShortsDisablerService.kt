@@ -16,6 +16,7 @@ class ShortsDisablerService : AccessibilityService() {
 
         // Find all nodes with the text "Shorts"
         val shortsNodes = rootNode.findAccessibilityNodeInfosByText("Shorts")
+        Log.d("ButtonDisabler", "Shorts great-grandparent found and disabled.")
 
         // Iterate through the found nodes
         for (node in shortsNodes) {
