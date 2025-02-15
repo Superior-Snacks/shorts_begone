@@ -50,25 +50,9 @@ class ShortsDisablerService : AccessibilityService() {
                 } else {
                     Log.w("ButtonDisabler", "Shorts grandparent not found.")
                 }
-                // Release resources
-                parent?.recycle()
-                grandparent?.recycle()
-                greatGrandparent?.recycle()
             }
-            // Release resources
-            node.recycle()
         }
         shortsNodes.clear()
-    }
-
-    override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        // Filter for window content changed events and check if the event is from the youtube app.
-        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED && event.packageName == "com.google.android.youtube") {
-            val rootNode = rootInActiveWindow
-            if (rootNode != null) {
-                disableShortsButton(rootNode)
-            }
-        }
     }
 
     override fun onInterrupt() {
