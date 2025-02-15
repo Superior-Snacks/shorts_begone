@@ -62,6 +62,7 @@ class ShortsDisablerService : AccessibilityService() {
             if (rootNode != null) {
                 disableShortsButton(rootNode)
             }
+            Log.d("NULL!!!!", "node was null you bitch")
         }
     }
 
