@@ -28,8 +28,9 @@ class ShortsDisablerService : AccessibilityService() {
                 Log.d("ButtonDisabler", "Shorts button found and matched!")
 
                 // Try to disable function
-                node.isClickable = false  // Disable clicks
-                node.isFocusable = false  // Prevent focus
+                // Trick the button into being "focused" instead of clicked
+                node.performAction(AccessibilityNodeInfo.ACTION_FOCUS)
+                node.performAction(AccessibilityNodeInfo.ACTION_CLEAR_ACCESSIBILITY_FOCUS)
 
                 Log.d("ButtonDisabler??", "Shorts button disabled.")
             }
