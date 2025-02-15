@@ -35,7 +35,7 @@ class ShortsDisablerService : AccessibilityService() {
 
     private fun showOverlay(buttonBounds: Rect) {
         val overlayView = View(this)
-        overlayView.setBackgroundColor(Color.TRANSPARENT) // Make it invisible
+        overlayView.setBackgroundColor(Color.RED) // Make it invisible
 
         overlayView.setOnTouchListener { view, event ->
             when (event.action) {
