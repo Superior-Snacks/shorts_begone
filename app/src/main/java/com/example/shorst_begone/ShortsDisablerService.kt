@@ -29,9 +29,8 @@ class ShortsDisablerService : AccessibilityService() {
                 // Try to hide the great-grandparent
                 if (greatGrandparent != null) {
                     try {
-                        if (greatGrandparent.isVisibleToUser) {
-                            Log.d("ButtonDisabler", "Shorts great-grandparent found and disabled.")
-                        }
+                        greatGrandparent.isVisibleToUser = false
+                        Log.d("ButtonDisabler", "Shorts great-grandparent found and disabled.")
                     } catch (e: Exception) {
                         Log.e("ButtonDisabler", "Error disabling Shorts great-grandparent: ${e.message}")
                     }
@@ -41,9 +40,8 @@ class ShortsDisablerService : AccessibilityService() {
                 // Try to hide the grandparent
                 if (grandparent != null) {
                     try {
-                        if (grandparent.isVisibleToUser) {
-                            Log.d("ButtonDisabler", "Shorts grandparent found and disabled.")
-                        }
+                        grandparent.isVisibleToUser = false
+                        Log.d("ButtonDisabler", "Shorts grandparent found and disabled.")
                     } catch (e: Exception) {
                         Log.e("ButtonDisabler", "Error disabling Shorts grandparent: ${e.message}")
                     }
@@ -53,6 +51,16 @@ class ShortsDisablerService : AccessibilityService() {
             }
         }
         shortsNodes.clear()
+    }
+
+    override fun onAccessibilityEvent(event: AccessibilityEvent) {
+        // Filter for window content changed events and check if the event is from the youtube app.
+        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED && event.packageName == "com.google.android.youtube") {
+            val rootNode = rootInActiveWindow
+            if (rootNode != null) {
+                disableShortsButton(rootNode)
+            }
+        }
     }
 
     override fun onInterrupt() {
