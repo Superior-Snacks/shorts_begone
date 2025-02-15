@@ -5,15 +5,12 @@ import android.graphics.Color
 import android.graphics.PixelFormat
 import android.graphics.Rect
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import androidx.compose.ui.geometry.isEmpty
-import androidx.compose.ui.semantics.contentDescription
 
-//import androidx.compose.ui.geometry.isEmpty
-//import androidx.compose.ui.semantics.contentDescription
 
 class ShortsDisablerService : AccessibilityService() {
 
