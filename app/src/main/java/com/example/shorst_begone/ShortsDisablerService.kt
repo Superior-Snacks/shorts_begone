@@ -39,9 +39,8 @@ private fun showOverlay(buttonBounds: Rect) {
     overlayView.setBackgroundColor(Color.TRANSPARENT) // Make it invisible
 
     overlayView.setOnTouchListener { _, _ ->
-        // Block touch events so Shorts cannot be tapped
         Log.d("ShortsOverlay", "Blocked Shorts button tap")
-        true
+        true  // Prevent touches from passing through
     }
 
     val overlayParams = WindowManager.LayoutParams(
@@ -55,8 +54,11 @@ private fun showOverlay(buttonBounds: Rect) {
     overlayParams.x = buttonBounds.left
     overlayParams.y = buttonBounds.top
 
-    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
-    windowManager.addView(overlayView, overlayParams)
-
-    Log.d("ShortsOverlay", "Overlay added at: (${buttonBounds.left}, ${buttonBounds.top})")
+    val windowManager = getSystemService(WINDOW_SERVICE) as? WindowManager
+    if (windowManager != null) {
+        windowManager.addView(overlayView, overlayParams)
+        Log.d("ShortsOverlay", "Overlay added at: (${buttonBounds.left}, ${buttonBounds.top})")
+    } else {
+        Log.e("ShortsOverlay", "WindowManager is null!")
+    }
 }
