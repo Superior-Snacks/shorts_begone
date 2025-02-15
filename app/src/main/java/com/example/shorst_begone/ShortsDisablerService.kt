@@ -19,7 +19,7 @@ class ShortsDisablerService : AccessibilityService() {
         for (node in shortsNodes) {
             Log.d("NodeInfo", "contentDescription: ${node.contentDescription}, className: ${node.className}")
 
-            if (node.contentDescription == "Shorts" && node.className == "android.widget.Button") {
+            if (node.contentDescription == "Shorts" && node.className?.contains("Button") == true) {
                 Log.d("ButtonDisabler", "Shorts button found")
 
                 // Try to remove/hide the button
