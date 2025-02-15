@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.accessibilityservice.AccessibilityService
+//import androidx.compose.ui.semantics.contentDescription
 
 
 class ShortsDisablerService : AccessibilityService() {
@@ -18,6 +19,7 @@ class ShortsDisablerService : AccessibilityService() {
 
         // Iterate through the found nodes
         for (node in shortsNodes) {
+            Log.d("NodeInfo", "contentDescription: ${node.contentDescription}, className: ${node.className}")
             // Check if this is the correct node
             if (node.contentDescription == "Shorts" && node.className == "android.widget.Button") {
                 // Get the parent
