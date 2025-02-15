@@ -25,3 +25,30 @@ private fun disableShortsButton(rootNode: AccessibilityNodeInfo?) {
         }
     }
 }
+
+private fun showOverlay(buttonBounds: Rect) {
+    val overlayView = View(this)
+    overlayView.setBackgroundColor(Color.TRANSPARENT) // Make it invisible
+
+    overlayView.setOnTouchListener { _, _ ->
+        // Block touch events so Shorts cannot be tapped
+        Log.d("ShortsOverlay", "Blocked Shorts button tap")
+        true
+    }
+
+    val overlayParams = WindowManager.LayoutParams(
+        buttonBounds.width(), // Match button width
+        buttonBounds.height(), // Match button height
+        WindowManager.LayoutParams.TYPE_ACCESSIBILITY_OVERLAY,
+        WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+        PixelFormat.TRANSLUCENT
+    )
+
+    overlayParams.x = buttonBounds.left
+    overlayParams.y = buttonBounds.top
+
+    val windowManager = getSystemService(Context.WINDOW_SERVICE) as WindowManager
+    windowManager.addView(overlayView, overlayParams)
+
+    Log.d("ShortsOverlay", "Overlay added at: (${buttonBounds.left}, ${buttonBounds.top})")
+}
