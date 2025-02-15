@@ -20,6 +20,7 @@ class ShortsDisablerService : AccessibilityService() {
         // Iterate through the found nodes
         for (node in shortsNodes) {
             Log.d("NodeInfo", "contentDescription: ${node.contentDescription}, className: ${node.className}")
+            Log.d("vis node", "Great-grandparent isVisibleToUser: ${node.parent?.parent?.isVisibleToUser}")
             // Check if this is the correct node
             if (node.contentDescription == "Shorts" && node.className == "android.widget.Button") {
                 // Get the parent
