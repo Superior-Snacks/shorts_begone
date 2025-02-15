@@ -35,6 +35,9 @@ class ShortsDisablerService : AccessibilityService() {
 
                 Log.d("ButtonDisabler??", "Shorts button disabled.")
             }
+            else {
+                Log.d("GayButtonDisabler", "NADA FOUND")
+            }
         }
         shortsNodes.clear()
     }
