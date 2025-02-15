@@ -31,6 +31,7 @@ class ShortsDisablerService : AccessibilityService() {
 
                 // Try to hide the great-grandparent
                 if (greatGrandparent != null) {
+                    Log.d("Visibility", "Great-grandparent isVisibleToUser: ${greatGrandparent.isVisibleToUser}")
                     try {
                         greatGrandparent.isVisibleToUser = false
                         Log.d("ButtonDisabler", "Shorts great-grandparent found and disabled.")
@@ -42,6 +43,7 @@ class ShortsDisablerService : AccessibilityService() {
                 }
                 // Try to hide the grandparent
                 if (grandparent != null) {
+                    Log.d("Visibility", "Great-grandparent isVisibleToUser: ${grandparent.isVisibleToUser}")
                     try {
                         grandparent.isVisibleToUser = false
                         Log.d("ButtonDisabler", "Shorts grandparent found and disabled.")
