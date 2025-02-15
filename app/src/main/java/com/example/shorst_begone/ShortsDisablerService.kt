@@ -21,8 +21,11 @@ class ShortsDisablerService : AccessibilityService() {
 
             //node.className?.contains("Button") == true
             val description = node.contentDescription?.trim()?.replace("\\s".toRegex(), "")
-            if (description == "Shorts") {
-                Log.d("ButtonDisabler", "Shorts button found")
+            val className = node.className?.trim()
+
+            if (description != null && description.matches(Regex("(?i)^Shorts\$")) &&
+                className != null && className.matches(Regex("(?i)^android\\.widget\\.Button(\\..*)?\$"))) {
+                Log.d("ButtonDisabler", "Shorts button found and matched!")
 
                 // Try to remove/hide the button
                 if (node.isClickable) {
