@@ -11,10 +11,6 @@ import android.view.WindowManager
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 
-import android.util.Log
-import android.view.accessibility.AccessibilityEvent
-import android.view.accessibility.AccessibilityNodeInfo
-import android.accessibilityservice.AccessibilityService
 
 class ShortsDisablerService : AccessibilityService() {
 
