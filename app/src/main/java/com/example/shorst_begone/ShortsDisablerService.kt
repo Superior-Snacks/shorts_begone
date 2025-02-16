@@ -19,6 +19,7 @@ class ShortsDisablerService : AccessibilityService() {
 
         // Find all nodes with text "Shorts"
         val shortsNodes = rootNode.findAccessibilityNodeInfosByText("Shorts")
+        val homeNodes = rootNode.findAccessibilityNodeInfosByText("Home")
 
         for (node in shortsNodes) {
             Log.d("NodeInfo", "contentDescription: ${node.contentDescription}, className: ${node.className}")
