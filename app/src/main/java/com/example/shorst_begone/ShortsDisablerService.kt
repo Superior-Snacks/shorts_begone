@@ -56,6 +56,20 @@ class ShortsDisablerService : AccessibilityService() {
         }
     }
 
+    private fun isShortsView(rootNode: AccessibilityNodeInfo?): Boolean {
+        if (rootNode == null) return false
+
+        // Find the Shorts feed (RecyclerView) by its ID
+        val shortsFeedNodes = rootNode.findAccessibilityNodeInfosByViewId("com.google.android.youtube:id/reel_recycler")
+
+        if (shortsFeedNodes.isNotEmpty()) {
+            Log.d("ShortsDetection", "Shorts view detected!")
+            return true
+        }
+
+        return false
+    }
+
     override fun onInterrupt() {
         Log.d("ButtonDisabler", "Service interrupted")
     }
