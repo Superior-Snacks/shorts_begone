@@ -10,6 +10,7 @@ class ShortsDisablerService : AccessibilityService() {
 
 
     private var last_back = 0
+    private val cooldown = 100
     //when the youtube app changes view if it is a short then go back
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         Log.d("START", "began")
@@ -18,8 +19,13 @@ class ShortsDisablerService : AccessibilityService() {
 
             val rootNode = rootInActiveWindow
             if (isShortsView(rootNode)) {
-                performGlobalAction(GLOBAL_ACTION_BACK)
-                Log.d("BACK", "Shorts detected, shit!! go back")
+                val current_time = System.currentTimeMillis()
+
+                if (current_time - last_back > cooldown) {
+                    performGlobalAction(GLOBAL_ACTION_BACK)
+                    Log.d("BACK", "Shorts detected, shit!! go back")
+                    last_back = current_time
+                }
             }
         }
     }
