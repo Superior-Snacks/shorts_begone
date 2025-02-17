@@ -7,8 +7,6 @@ import android.view.accessibility.AccessibilityNodeInfo
 
 
 class ShortsDisablerService : AccessibilityService() {
-
-
     private var last_back: Long = 0
     private val cooldown = 40 // I cannot make the app crash
     //when the youtube app changes view if it is a short then go back
