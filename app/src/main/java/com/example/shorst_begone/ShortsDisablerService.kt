@@ -33,7 +33,6 @@ class ShortsDisablerService : AccessibilityService() {
 
     private fun isShortsView(rootNode: AccessibilityNodeInfo?): Boolean {
         if (rootNode == null) return false
-
         // Find the Shorts feed
         val shortsFeedNodes = rootNode.findAccessibilityNodeInfosByViewId("com.google.android.youtube:id/reel_recycler")
 
