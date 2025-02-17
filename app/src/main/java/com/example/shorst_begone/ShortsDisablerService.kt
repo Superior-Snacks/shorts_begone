@@ -17,6 +17,7 @@ class ShortsDisablerService : AccessibilityService() {
             val rootNode = rootInActiveWindow
             if (isShortsView(rootNode)) {
                 performGlobalAction(GLOBAL_ACTION_BACK)
+                Log.d("BACK", "Shorts detected, shit!! go back")
             }
         }
     }
