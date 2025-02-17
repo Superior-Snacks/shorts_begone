@@ -26,6 +26,10 @@ class ShortsDisablerService : AccessibilityService() {
                     Log.d("BACK", "Shorts detected, shit!! go back")
                     last_back = current_time
                 }
+                else {
+                    Log.d("SKIP", "Shorts detected, WE ARE WORKING ON IT")
+
+                }
             }
         }
     }
