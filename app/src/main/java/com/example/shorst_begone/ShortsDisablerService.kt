@@ -41,7 +41,6 @@ class ShortsDisablerService : AccessibilityService() {
             Log.d("ShortsDetection", "Shorts view detected!")
             return true
         }
-
         return false
     }
 
