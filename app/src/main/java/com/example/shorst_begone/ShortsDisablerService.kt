@@ -11,7 +11,6 @@ class ShortsDisablerService : AccessibilityService() {
     private val cooldown = 40 // I cannot make the app crash
     //when the youtube app changes view if it is a short then go back
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
-        Log.d("START", "began")
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED &&
             event.packageName == "com.google.android.youtube") {
 
