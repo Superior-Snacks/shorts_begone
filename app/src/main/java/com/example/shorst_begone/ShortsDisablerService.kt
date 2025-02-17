@@ -9,6 +9,7 @@ import android.view.accessibility.AccessibilityNodeInfo
 class ShortsDisablerService : AccessibilityService() {
 
 
+    private var last_back = 0
     //when the youtube app changes view if it is a short then go back
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         Log.d("START", "began")
