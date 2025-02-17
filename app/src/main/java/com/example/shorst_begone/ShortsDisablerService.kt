@@ -21,8 +21,10 @@ class ShortsDisablerService : AccessibilityService() {
             event.packageName == "com.google.android.youtube") {
 
             val rootNode = rootInActiveWindow
-            val
-            rootNode?.let { disableShortsButton(it) }
+            if (isShortsView(rootNode)) {
+                performGlobalAction(GLOBAL_ACTION_BACK)
+            }
+            //rootNode?.let { disableShortsButton(it) }
         }
     }
 
