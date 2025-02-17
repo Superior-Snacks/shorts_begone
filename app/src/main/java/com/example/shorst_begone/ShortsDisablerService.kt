@@ -37,6 +37,6 @@ class ShortsDisablerService : AccessibilityService() {
     }
 
     override fun onInterrupt() {
-        Log.d("ButtonDisabler", "Service interrupted")
+        Log.d("ShortsGoBacker", "Service interrupted")
     }
 }
