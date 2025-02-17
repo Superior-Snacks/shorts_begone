@@ -18,7 +18,6 @@ class ShortsDisablerService : AccessibilityService() {
             if (isShortsView(rootNode)) {
                 performGlobalAction(GLOBAL_ACTION_BACK)
             }
-            //rootNode?.let { disableShortsButton(it) }
         }
     }
 
