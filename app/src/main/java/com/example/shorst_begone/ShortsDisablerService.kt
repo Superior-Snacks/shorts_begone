@@ -10,7 +10,7 @@ class ShortsDisablerService : AccessibilityService() {
 
 
     private var last_back: Long = 0
-    private val cooldown = 10
+    private val cooldown = 20
     //when the youtube app changes view if it is a short then go back
     override fun onAccessibilityEvent(event: AccessibilityEvent) {
         Log.d("START", "began")
