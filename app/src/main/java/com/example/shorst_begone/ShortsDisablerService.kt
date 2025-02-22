@@ -16,12 +16,12 @@ class ShortsDisablerService : AccessibilityService() {
 
             val rootNode = rootInActiveWindow
             if (isShortsView(rootNode)) {
-                val current_time = System.currentTimeMillis()
+                val currentTime = System.currentTimeMillis()
 
-                if (current_time - last_back > cooldown) {
+                if (currentTime - last_back > cooldown) {
                     performGlobalAction(GLOBAL_ACTION_BACK)
                     Log.d("BACK", "Shorts detected, shit!! go back")
-                    last_back = current_time
+                    last_back = currentTime
                 }
                 else {
                     Log.d("SKIP", "Shorts detected, WE ARE WORKING ON IT")
