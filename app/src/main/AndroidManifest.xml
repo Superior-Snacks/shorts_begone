@@ -16,7 +16,8 @@
         <!-- access Declaration -->
         <activity
             android:name=".AccessibilityRedirectActivity"
-            android:exported="true">
+            android:exported="true"
+            android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
