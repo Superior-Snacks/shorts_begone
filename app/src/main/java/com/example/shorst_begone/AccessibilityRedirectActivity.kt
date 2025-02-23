@@ -11,7 +11,9 @@ class AccessibilityRedirectActivity : Activity() {
 
         // Create an Intent to open the Accessibility Settings
         val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+        // Add these flags to clear the task and start a new one
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
 
         // Start the Accessibility Settings Activity
         startActivity(intent)
