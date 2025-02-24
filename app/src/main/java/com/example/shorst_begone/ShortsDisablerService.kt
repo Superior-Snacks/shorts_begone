@@ -20,7 +20,7 @@ class ShortsDisablerService : AccessibilityService() {
 
                 if (currentTime - last_back > cooldown) {
                     performGlobalAction(GLOBAL_ACTION_BACK)
-                    Log.d("BACK", "Shorts detected, shit!! go back")
+                    Log.d("BACK", "Shorts detected, mr.President get down!")
                     last_back = currentTime
                 }
                 else {
