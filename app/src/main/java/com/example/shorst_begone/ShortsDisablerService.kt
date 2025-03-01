@@ -14,6 +14,7 @@ class ShortsDisablerService : AccessibilityService() {
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED &&
             event.packageName == "com.google.android.youtube") {
             val rootNode = rootInActiveWindow
+
             if (isShortsView(rootNode)) {
                 val currentTime = System.currentTimeMillis()
                 if (currentTime - last_back > cooldown) {
