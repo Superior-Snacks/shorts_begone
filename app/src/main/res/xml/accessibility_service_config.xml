@@ -3,7 +3,7 @@
     android:accessibilityEventTypes="typeWindowContentChanged|typeViewClicked"
     android:packageNames="com.google.android.youtube"
     android:accessibilityFeedbackType="feedbackGeneric"
-    android:accessibilityFlags="flagDefault"
+    android:notificationTimeout="100"
     android:canRetrieveWindowContent="true"
-    android:description="@string/accessibility_service_description"
-    android:notificationTimeout="100" />
+    android:accessibilityFlags="flagReportViewIds|flagRetrieveInteractiveWindows"
+    android:description="@string/accessibility_service_description" />
