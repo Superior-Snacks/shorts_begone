@@ -4,6 +4,8 @@ import android.accessibilityservice.AccessibilityService
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
+import android.os.Handler
+import android.os.Looper
 
 
 class ShortsDisablerService : AccessibilityService() {
@@ -14,10 +16,12 @@ class ShortsDisablerService : AccessibilityService() {
         Log.d("ShortsGoBacker", "onAccessibilityEvent called")
         Log.d("ShortsGoBacker", "Event type: ${event.eventType}")
         Log.d("ShortsGoBacker", "Package name: ${event.packageName}")
-        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED &&
+        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED &&
             event.packageName == "com.google.android.youtube") {
             Log.d("DEBUG", "a view change")
-            val rootNode = rootInActiveWindow
+            Handler(Looper.getMainLooper()).postDelayed({
+                val rootNode = rootInActiveWindow
+                Log.d("ShortsGoBacker", "rootNode: $rootNode")
 
             if (isShortsView(rootNode)) {
                 val currentTime = System.currentTimeMillis()
@@ -32,6 +36,7 @@ class ShortsDisablerService : AccessibilityService() {
 
                 }
             }
+        }, 500)
         }
     }
 
