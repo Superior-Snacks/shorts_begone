@@ -14,7 +14,7 @@ class ShortsDisablerService : AccessibilityService() {
         Log.d("ShortsGoBacker", "onAccessibilityEvent called")
         Log.d("ShortsGoBacker", "Event type: ${event.eventType}")
         Log.d("ShortsGoBacker", "Package name: ${event.packageName}")
-        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED &&
+        if (event.eventType == AccessibilityEvent.TYPE_WINDOW_STATE_CHANGED &&
             event.packageName == "com.google.android.youtube") {
             Log.d("DEBUG", "a view change")
             val rootNode = rootInActiveWindow
