@@ -4,14 +4,9 @@ import android.accessibilityservice.AccessibilityService
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
-import android.os.Handler
-import android.os.Looper
 
 
 class ShortsDisablerService : AccessibilityService() {
-    override fun onServiceConnected() {
-        Log.d("ShortsDisabler", "Service connected!")
-    }
     private var last_back: Long = 0
     private val cooldown = 40 // I cannot make the app crash
     //when the youtube app changes view if it is a short then go back
@@ -22,9 +17,7 @@ class ShortsDisablerService : AccessibilityService() {
         if (event.eventType == AccessibilityEvent.TYPE_WINDOW_CONTENT_CHANGED &&
             event.packageName == "com.google.android.youtube") {
             Log.d("DEBUG", "a view change")
-            Handler(Looper.getMainLooper()).postDelayed({
-                val rootNode = rootInActiveWindow
-                Log.d("ShortsGoBacker", "rootNode: $rootNode")
+            val rootNode = rootInActiveWindow
 
             if (isShortsView(rootNode)) {
                 val currentTime = System.currentTimeMillis()
@@ -39,7 +32,6 @@ class ShortsDisablerService : AccessibilityService() {
 
                 }
             }
-        }, 500)
         }
     }
 
