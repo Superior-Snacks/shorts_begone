@@ -28,8 +28,25 @@ class ShortsDisablerService : AccessibilityService() {
     private var audioManager: AudioManager? = null
 
     // Config: 15 Minutes inactivity
-    private val INACTIVITY_TIMEOUT_MS = 15 * 60 * 1000L
+    private val INACTIVITY_TIMEOUT_MS =10 * 1000L //15 * 60 * 1000L
     private val START_HOUR = 22 // 10 PM
+
+    // DEBUG: Track when the timer started
+    private var timerStartTime: Long = 0
+
+    // DEBUG: A runnable that prints time every second
+    private val logTicker = object : Runnable {
+        override fun run() {
+            val elapsedMillis = System.currentTimeMillis() - timerStartTime
+            val elapsedSeconds = elapsedMillis / 1000
+            val remainingSeconds = (INACTIVITY_TIMEOUT_MS - elapsedMillis) / 1000
+
+            Log.d("SleepTimerDebug", "Elapsed: ${elapsedSeconds}s | Remaining: ${remainingSeconds}s")
+
+            // Run this again in 1 second (1000ms)
+            timerHandler.postDelayed(this, 1000)
+        }
+    }
 
     // Track if we are currently watching a normal video
     private var isWatchingNormalVideo = false
@@ -154,16 +171,26 @@ class ShortsDisablerService : AccessibilityService() {
     }
 
     private fun resetSleepTimer() {
+        // 1. Clear existing timers and logs
         timerHandler.removeCallbacks(sleepRunnable)
+        timerHandler.removeCallbacks(logTicker)
+
         if (isAfterBedtime()) {
+            // 2. Start the Main Sleep Timer
             timerHandler.postDelayed(sleepRunnable, INACTIVITY_TIMEOUT_MS)
-            isTimerRunning = true
+
+            // 3. Start the Debug Logger
+            timerStartTime = System.currentTimeMillis()
+            timerHandler.post(logTicker)
+
+            Log.d("SleepTimer", "Timer STARTED. Waiting ${INACTIVITY_TIMEOUT_MS / 1000}s")
         }
     }
 
     private fun stopSleepTimer() {
         timerHandler.removeCallbacks(sleepRunnable)
-        isTimerRunning = false
+        timerHandler.removeCallbacks(logTicker) // Stop the logs too!
+        Log.d("SleepTimer", "Timer CANCELLED (Not watching video or Screen Off)")
     }
 
     private fun isAfterBedtime(): Boolean {
