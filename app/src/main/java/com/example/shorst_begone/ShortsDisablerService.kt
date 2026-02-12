@@ -21,8 +21,8 @@ class ShortsDisablerService : AccessibilityService() {
     private val TEST_MODE = false  // <--- SET TO FALSE WHEN DONE TESTING
     // If TEST_MODE is true, it ignores the 10 PM check.
 
-    private val INACTIVITY_TIMEOUT_MS = if (TEST_MODE) 10 * 1000L else 60 * 60 * 1000L
-    private val START_HOUR = 18//22
+    private val INACTIVITY_TIMEOUT_MS = if (TEST_MODE) 10 * 1000L else 30 * 60 * 1000L
+    private val START_HOUR = 22
     private val cooldown = 400L
 
     // --- VARIABLES ---
